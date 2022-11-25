@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 50px;
+  cursor: pointer;
+
+
+}
+
+::-webkit-scrollbar-thumb {
+  background:linear-gradient(180deg, rgb(170, 170, 170) 0%, rgb(179, 179, 179) 70%, rgb(71, 71, 71) 100%);
+  cursor: pointer;
+
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+  background: rgb(100, 100, 100);
+  border-radius: 50px;
+}
+body {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* background:linear-gradient(180deg, rgba(2,0,36,1) 0%, rgb(2, 0, 26) 34%, rgb(14, 14, 14) 100%); */
+  background-color: #1c1e21;
+}
+.bg-gradient {
+  /* background:linear-gradient(180deg, rgba(2,0,36,1) 0%, rgb(3, 0, 53) 34%, rgb(14, 14, 14) 100%); */
+  background-color:#1c1e21;
+ 
+}
+.bg-white{
+  background-color: #EEEEEE;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+h1,h2,h3{
+  color: white;
+}
