@@ -11,7 +11,7 @@ const Chat = () => {
     const loggedin = useSelector((state) => state.isLoggin.value)
     const navigate = useNavigate()
     useEffect(() => {
-        if (!loggedin) navigate("/login")
+        // if (!loggedin) navigate("/login")
 
     }, [])
 

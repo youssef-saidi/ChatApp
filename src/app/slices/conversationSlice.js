@@ -2,13 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   apparence: true,
-  activeConversation: {
-    IdUser: 1,
-    userName: "Youssef saidi",
-    imgUser: "/images/noImage.jpg",
-    etat:true,
-    room:"room1"
-  },
   users: [
     {
       IdUser: 1,
@@ -87,7 +80,15 @@ const initialState = {
       imgUser: "/images/userIm.png",
       etat:true
     }
-  ]
+  ],
+  activeConversation: {
+    IdUser: 1,
+    userName: "Youssef saidi",
+    imgUser: "/images/noImage.jpg",
+    etat:true,
+    room:"room1"
+  },
+  
 }
 export const conversationSlice = createSlice({
   name: 'counter',

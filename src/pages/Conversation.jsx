@@ -3,6 +3,7 @@ import EmojiPicker from 'emoji-picker-react';
 import MsgEntred from '../components/MsgEntred';
 import { useSelector } from 'react-redux';
 import SentMessage from '../components/SentMessage';
+import axios from 'axios';
 
 const Conversation = () => {
     const [apparence, setapparence] = useState(false);
@@ -17,6 +18,28 @@ const Conversation = () => {
     const onEmojiClick = (event, emojiObject) => {
         message.current.value = message.current.value + emojiObject.emoji;
     };
+    const fetchData = () => {
+        return axios
+        .post(`http://localhost:22551/ChatApp-war/login?name=${formData.name}&pass=${formData.password}`)
+        .then((response) => {
+          console.log(response);
+          if (response.data.status) {
+              dispatch(logIn())
+              Cache.set("userId",response.data.userId)
+              
+            return navigate("/");
+          }else{
+              
+              errors = { ...errors, error: "Your Username Or password is Incorrect" };
+              return updateFormErrors(errors);
+          }
+        })
+        .catch((error) => {
+      
+          console.log(error)
+     
+        });
+      }
 
     useEffect(() => {
         var webSocket = new WebSocket('ws://localhost:22551/Chat-war/chat/' + userInfo.room);
