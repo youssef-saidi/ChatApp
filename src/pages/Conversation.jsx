@@ -31,27 +31,6 @@ const Conversation = () => {
     }
     if (userInfo.IdUser != undefined) {
       user2 = userInfo.IdUser;
-      axios
-      .post(`http://localhost:22551/ChatApp-war/GetFriends?id=${Cache.get("userId")}`)
-      .then((response) => {
-   console.log(response.data)
-        if (response.data!="") {
-          dispatch(setUser(response.data))
-
-
-            
-      //     return navigate("/");
-        }else{
-            
-          //   errors = { ...errors, error: "Your Username Or password is Incorrect" };
-            return console.log("Your Username Or password is Incorrect" );
-        }
-      })
-      .catch((error) => {
-    
-        console.log(error)
-   
-      });
     }
     return axios
       .post(
@@ -60,10 +39,16 @@ const Conversation = () => {
         )}&user2=${user2}`
       )
       .then((response) => {
-        console.log(response.data);
-       if ( response.data != null) {
-        
-          console.log(response.data);
+        if (response.data === "]") {
+          if (userInfo.room == undefined) {
+            window.location.reload(false);
+          }
+        }
+        if (
+          response.data != null &&
+          response.data != "]" &&
+          response.data != ""
+        ) {
           return setdata(response.data);
         } else {
           setdata(null);
@@ -160,7 +145,7 @@ const Conversation = () => {
       </div>
       <div className="px-4 overflow-y-scroll h-screen md:h-full w-full   md:mb-32 pt-2 md:pb-52">
         {console.log(data)}
-        {data != null && data != ""  && data != "]" ? (
+        {data != null && data != "" && data != "]" ? (
           data.map((dt) =>
             dt.sender != Cache.get("userId") ? (
               <MsgEntred info={userInfo} message={dt} />

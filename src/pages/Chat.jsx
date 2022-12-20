@@ -22,13 +22,8 @@ const Chat = () => {
         return axios
         .post(`http://localhost:22551/ChatApp-war/GetFriends?id=${Cache.get("userId")}`)
         .then((response) => {
-     console.log(response.data)
           if (response.data!="") {
             dispatch(setUser(response.data))
-            console.log(users)
-
-
-              
         //     return navigate("/");
           }else{
               
