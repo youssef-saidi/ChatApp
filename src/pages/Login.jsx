@@ -1,18 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../app/slices/logSlice";
 import { useNavigate } from "react-router-dom";
-import Cache from '../Storage/Storage';
+import Cache from "../Storage/Storage";
 
 const Login = () => {
+  const loggedin = useSelector((state) => state.isLoggin.value);
+
   const [formData, updateFormData] = useState({}),
     [formErrors, updateFormErrors] = useState({});
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (loggedin) navigate("/");
+  }, [loggedin]);
 
   const handleChange = (e) => {
     updateFormData({
@@ -27,32 +30,35 @@ const Login = () => {
     let errors = {};
     console.log(formData);
 
-    if (_.isEmpty(formData.name)) errors = { ...errors, name: "Your Username is required" };
+    if (_.isEmpty(formData.name))
+      errors = { ...errors, name: "Your Username is required" };
 
-    if (_.isEmpty(formData.password)) errors = { ...errors, password: "Your password is required" };
+    if (_.isEmpty(formData.password))
+      errors = { ...errors, password: "Your password is required" };
 
     updateFormErrors(errors);
 
     if (!_.isEmpty(errors)) return; //Skip the rest.
     return axios
-      .post(`http://localhost:22551/ChatApp-war/login?name=${formData.name}&pass=${formData.password}`)
+      .post(
+        `http://localhost:22551/ChatApp-war/login?name=${formData.name}&pass=${formData.password}`
+      )
       .then((response) => {
         console.log(response);
         if (response.data.status) {
-            dispatch(logIn())
-            Cache.set("userId",response.data.userId)
-            
-          return navigate("/");
-        }else{
-            
-            errors = { ...errors, error: "Your Username Or password is Incorrect" };
-            return updateFormErrors(errors);
-        }
+          dispatch(logIn());
+          Cache.set("userId", response.data.userId);
 
-     
+          return navigate("/");
+        } else {
+          errors = {
+            ...errors,
+            error: "Your Username Or password is Incorrect",
+          };
+          return updateFormErrors(errors);
+        }
       })
       .catch((error) => {
-    
         errors = {
           ...errors,
           error: "Something went wrong please try again later.",
@@ -61,10 +67,14 @@ const Login = () => {
       });
   };
 
- 
   const displayError = (key) => {
-    if (!_.isEmpty(formErrors[key])) return <div className="" style={{color:"red"}}>{formErrors[key]}</div>
-  }
+    if (!_.isEmpty(formErrors[key]))
+      return (
+        <div className="" style={{ color: "red" }}>
+          {formErrors[key]}
+        </div>
+      );
+  };
   return (
     <>
       <div className="h-screen flex justify-center items-center w-screen overflow-hidden relative">
@@ -101,7 +111,7 @@ const Login = () => {
             {displayError("password")}
           </div>
           {displayError("error")}
-      
+
           <div className="text-center mt-6">
             <button
               type="submit"

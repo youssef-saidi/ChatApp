@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../app/slices/logSlice';
 
 const Navbar = () => {
     const [apparence, setapparence] = useState(false);
+    const dispatch = useDispatch()
+
+ 
     return (
         <div className='sticky top-0 w-screen h-16 flex flex-row items-center place-content-between bg-white shadow-3xl z-40'>
             <div className='flex flex-row justify-center items-center p-4'>
@@ -15,7 +20,7 @@ const Navbar = () => {
                         <img className='cursor-pointer w-12 h-12 mr-4 rounded-full border border-2' src="/images/noImage.jpg" alt="" srcSet="" />
                         <h2 className='text-md font-semibold'>Youssef Saidi</h2>
                     </div>
-                    <h3 className='bg-gradient text-md font-semibold flex justify-end mt-2 py-2 px-4  hover:text-red-600 cursor-pointer'>Log out</h3>
+                    <h3 onClick={()=>dispatch(logOut())} className='bg-gradient text-md font-semibold flex justify-end mt-2 py-2 px-4  hover:text-red-600 cursor-pointer'>Log out</h3>
                 </div>}
             </div>
         </div>

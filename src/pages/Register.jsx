@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../app/slices/logSlice";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const loggedin = useSelector((state) => state.isLoggin.value)
+
   const [formData, updateFormData] = useState({}),
     [formErrors, updateFormErrors] = useState({});
   const dispatch = useDispatch();
@@ -41,11 +43,11 @@ const Register = () => {
     updateFormErrors(errors);
 
     if (!_.isEmpty(errors)) return; //Skip the rest.
-    const id = formData.name + Math.floor(Math.random() * 1542189);
+    // const id = formData.name + Math.floor(Math.random() * 1542189);
     
     return axios
       .post(
-        `http://localhost:22551/ChatApp-war/utilisateurservlet?id=${id}&name=${formData.name}&email=${formData.email}&password=${formData.password}`
+        `http://localhost:22551/ChatApp-war/utilisateurservlet?name=${formData.name}&email=${formData.email}&password=${formData.password}`
       )
       .then((response) => {
         console.log(response);
@@ -78,6 +80,10 @@ const Register = () => {
         </div>
       );
   };
+  useEffect(() => {
+    if (loggedin) navigate("/")
+
+}, [loggedin])
   return (
     <>
       <div className="h-screen flex justify-center items-center w-screen overflow-hidden relative">

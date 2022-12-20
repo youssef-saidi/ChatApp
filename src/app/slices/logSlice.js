@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import Cache from "../../Storage/Storage";
 
 
 const initialState = {
@@ -14,6 +15,7 @@ export const logSlice = createSlice({
   },
     logOut: (state) => {
       state.value = false
+      Cache.deleteStorage('userId')
   },
   },
 })

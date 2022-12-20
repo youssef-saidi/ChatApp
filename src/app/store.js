@@ -9,7 +9,7 @@ import conversationReducer from './slices/conversationSlice'
 export const store =configureStore({
     reducer: {
       isLoggin: logSliceReducer,
-      sideBar: sideReducer,
+      // sideBar: sideReducer,
       conversation: conversationReducer,
     },
   })
