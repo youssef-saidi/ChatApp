@@ -61,6 +61,7 @@ const Conversation = () => {
       });
   };
 
+  // ----------------------------------badel lahnee ----------------------------------
   useEffect(() => {
     var webSocket = new WebSocket(
       "ws://localhost:22551/ChatApp-war/chat/" + userInfo.room
@@ -94,6 +95,8 @@ const Conversation = () => {
       alert(event.data);
     }
   }, [userInfo.room]);
+// ----------------------------------------------------------------
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
