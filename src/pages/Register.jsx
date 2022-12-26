@@ -7,13 +7,23 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const loggedin = useSelector((state) => state.isLoggin.value)
+  const [image, setImage] = useState(null);
+
 
   const [formData, updateFormData] = useState({}),
     [formErrors, updateFormErrors] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const formDataa = new FormData();
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+    formDataa.append('image', event.target.files[0]);
+
+  };
 
   const handleChange = (e) => {
+    formDataa.append(e.target.name, e.target.value.trim());
+
     updateFormData({
       ...formData,
       [e.target.name]: e.target.value.trim(),
@@ -23,7 +33,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let errors = {};
-    console.log(formData);
+    console.log(formDataa);
 
     if (_.isEmpty(formData.name))
       errors = { ...errors, name: "Your Username is required" };
@@ -43,6 +53,14 @@ const Register = () => {
     updateFormErrors(errors);
 
     if (!_.isEmpty(errors)) return; //Skip the rest.
+    // return fetch('http://localhost:22551/ChatApp-war/utilisateurservlet', {
+    //   method: 'POST',
+    //   body: formDataa
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data))
+    //   .catch((error) => console.error(error));
+
     // const id = formData.name + Math.floor(Math.random() * 1542189);
     
     return axios
@@ -70,6 +88,7 @@ const Register = () => {
         };
         return updateFormErrors(errors);
       });
+  
   };
 
   const displayError = (key) => {
@@ -159,7 +178,7 @@ const Register = () => {
               </svg>
               <span className="text-gray-600 font-medium">Upload Image</span>
             </label>
-            <input id="upload" type="file" className="hidden" />
+            <input id="upload" onChange={handleImageChange} type="file" className="hidden" />
             {/* </div> */}
           </div>
           <div className="text-center mt-6">

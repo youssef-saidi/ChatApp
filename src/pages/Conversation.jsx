@@ -66,7 +66,6 @@ const Conversation = () => {
     var webSocket = new WebSocket(
       "ws://localhost:22551/ChatApp-war/chat/" + userInfo.room
     );
-    console.log(userInfo.room);
     setwebSocket(webSocket);
     webSocket.onerror = function (event) {
       onError(event);
