@@ -12,7 +12,7 @@ const Contact = (userInfo) => {
             </div>
             <div className='flex flex-col'>
                 <h2 className='text-md font-semibold'>{userInfo.userInfo.userName}</h2>
-                <p className='text-sm font-medium text-white'>vous: Hello word </p>
+                <p className='text-sm font-medium text-white'>Click to see messages</p>
             </div>
         </a>
     );
