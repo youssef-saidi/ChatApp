@@ -33,9 +33,7 @@ const Conversation = () => {
     if (userInfo.IdUser != undefined) {
       user2 = userInfo.IdUser;
     }
-    console.log(`http://localhost:22551/ChatApp-war/GetConversation?id=${room}&user1=${Cache.get(
-      "userId"
-    )}&user2=${user2}`)
+
     return axios
       .post(
         `http://localhost:22551/ChatApp-war/GetConversation?id=${room}&user1=${Cache.get(
@@ -67,9 +65,7 @@ const Conversation = () => {
 fetchData();
   // ----------------------------------badel lahnee ----------------------------------
   useEffect(() => {
-    console.log("----------------------------------------------------------------------")
 
-console.log(userInfo.room)
     var webSocket = new WebSocket(
       "ws://localhost:22551/ChatApp-war/chat/" + userInfo.room
     );

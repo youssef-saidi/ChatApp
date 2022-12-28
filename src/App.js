@@ -8,14 +8,12 @@ import Register from "./pages/Register";
 import Cache from "./Storage/Storage";
 
 function App() {
-  const dispatch=useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    console.log(Cache.get("userId"))
-if (Cache.get("userId")) {
-  dispatch(logIn())
-
-}
-}, [Cache.get("userId")]);
+    if (Cache.get("userId")) {
+      dispatch(logIn());
+    }
+  }, [Cache.get("userId")]);
   return (
     <>
       <Router>

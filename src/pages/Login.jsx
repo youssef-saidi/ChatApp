@@ -28,7 +28,6 @@ const Login = () => {
     e.preventDefault();
 
     let errors = {};
-    console.log(formData);
 
     if (_.isEmpty(formData.name))
       errors = { ...errors, name: "Your Username is required" };
@@ -44,7 +43,6 @@ const Login = () => {
         `http://localhost:22551/ChatApp-war/login?name=${formData.name}&pass=${formData.password}`
       )
       .then((response) => {
-        console.log(response);
         if (response.data.status) {
           dispatch(logIn());
           Cache.set("userId", response.data.userId);

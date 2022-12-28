@@ -68,7 +68,6 @@ const Register = () => {
         `http://localhost:22551/ChatApp-war/utilisateurservlet?name=${formData.name}&email=${formData.email}&password=${formData.password}`
       )
       .then((response) => {
-        console.log(response);
         if (response.data.status) {
           alert("your Account has been created succesfully");
 

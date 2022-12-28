@@ -10,7 +10,6 @@ const Contacts = () => {
 
   const [Search, setSearch] = useState("");
   const users = useSelector((state) => state.conversation.users);
-  console.log(users)
   const userContact =users!="]" && users.map((item, key) => {
     if (item.IdUser != Cache.get("userId")) {
       return <Contact index={key} userInfo={item} />;

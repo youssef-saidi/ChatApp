@@ -34,7 +34,6 @@ const Navbar = () => {
     useEffect(() => {
         fetchData()
     }, []);
-    console.log(currentuser)
  
     return (
         <div className='sticky top-0 w-screen h-16 flex flex-row items-center place-content-between bg-white shadow-3xl z-40'>
