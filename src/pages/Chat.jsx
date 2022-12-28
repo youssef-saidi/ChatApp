@@ -17,7 +17,6 @@ const Chat = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    console.log(Cache.get("userId"))
     const fetchData = () => {
         return axios
         .post(`http://localhost:22551/ChatApp-war/GetFriends?id=${Cache.get("userId")}`)

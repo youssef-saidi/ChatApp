@@ -16,6 +16,7 @@ const Conversation = () => {
   const userInfo = useSelector(
     (state) => state.conversation.activeConversation
   );
+
   const message = useRef();
   const [data, setdata] = useState(null);
 
@@ -32,6 +33,9 @@ const Conversation = () => {
     if (userInfo.IdUser != undefined) {
       user2 = userInfo.IdUser;
     }
+    console.log(`http://localhost:22551/ChatApp-war/GetConversation?id=${room}&user1=${Cache.get(
+      "userId"
+    )}&user2=${user2}`)
     return axios
       .post(
         `http://localhost:22551/ChatApp-war/GetConversation?id=${room}&user1=${Cache.get(
@@ -60,9 +64,12 @@ const Conversation = () => {
         console.log(error);
       });
   };
-
+fetchData();
   // ----------------------------------badel lahnee ----------------------------------
   useEffect(() => {
+    console.log("----------------------------------------------------------------------")
+
+console.log(userInfo.room)
     var webSocket = new WebSocket(
       "ws://localhost:22551/ChatApp-war/chat/" + userInfo.room
     );
@@ -116,7 +123,7 @@ const Conversation = () => {
   };
 
   return (
-    <div className=" h-full py-4 relative z-10">
+    <div className=" h-full py-4 relative z-10" onClick={fetchData}>
       <div className="mx-4 flex flex-row items-center z-50 place-content-between rounded-lg sticky top-0 border-b py-2 bg-white">
         <div className="flex flex-row items-center ">
           <img
@@ -146,7 +153,7 @@ const Conversation = () => {
         </div>
       </div>
       <div className="px-4 overflow-y-scroll h-screen md:h-full w-full   md:mb-32 pt-2 md:pb-52">
-        {console.log(data)}
+        {fetchData}
         {data != null && data != "" && data != "]" ? (
           data.map((dt) =>
             dt.sender != Cache.get("userId") ? (

@@ -2,20 +2,37 @@ import React, { useState ,useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../app/slices/logSlice';
 import Cache from "../Storage/Storage";
+import axios from "axios";
+
 
 const Navbar = () => {
     const [apparence, setapparence] = useState(false);
     const dispatch = useDispatch()
-    const users = useSelector((state) => state.conversation.users);
     const [currentuser, setcurrentuser] = useState();
+    const fetchData =()=>{
+        return axios
+        .post(`http://localhost:22551/ChatApp-war/getCurrentUser?id=${Cache.get("userId")}`)
+        .then((response) => {
+          if (response.data!="") {
+            response.data.map((item, key) => {
+                if (item.IdUser == Cache.get("userId")) {
+                  return setcurrentuser(item)
+                }
+              });
+          }else{
+              
+            //   errors = { ...errors, error: "Your Username Or password is Incorrect" };
+              return console.log("Your Username Or password is Incorrect" );
+          }
+        })
+        .catch((error) => {
+      
+          console.log(error)
+     
+        }); 
+    }
     useEffect(() => {
-        console.log(users)
-        users.map((item, key) => {
-            if (item.IdUser == Cache.get("userId")) {
-                console.log(item)
-              return setcurrentuser(item)
-            }
-          });
+        fetchData()
     }, []);
     console.log(currentuser)
  
